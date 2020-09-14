@@ -1,3 +1,6 @@
+@setlocal DisableDelayedExpansion
+@echo off
+
 
 
 ::========================================================================================================================================
@@ -65,6 +68,7 @@ set KMS_Port=1688
 ::
 ::   Homepages-
 ::   NsaneForums: (Login Required) https://www.nsaneforums.com/topic/316668-microsoft-activation-scripts/
+::   GitHub: https://github.com/massgravel/Microsoft-Activation-Scripts
 ::   GitLab: https://gitlab.com/massgrave/microsoft-activation-scripts
 ::
 ::   Maintained by @WindowsAddict
@@ -88,7 +92,7 @@ if /i "%%A"=="/u" set Unattended=1
 if /i "%%A"=="Task" set Task=1&set Unattended=1)
 :NoProgArgs
 for /f "tokens=6 delims=[]. " %%G in ('ver') do set winbuild=%%G
-set "_psc=powershell -nop -ep bypass -c"
+set "_psc=powershell"
 set "nul=1>nul 2>nul"
 set "EchoRed=%_psc% write-host -back Black -fore Red"
 set "EchoGreen=%_psc% write-host -back Black -fore Green"
@@ -222,7 +226,6 @@ echo Exiting in 3 seconds...
 if %winbuild% LSS 7600 (ping -n 3 127.0.0.1 > nul) else (timeout /t 3)
 exit /b
 )
-
 ::========================================================================================================================================
 
 :Clear-KMS-Cache
@@ -386,7 +389,7 @@ if defined Renewal_Task set /a max_loop=3
 if defined Run_Once set /a max_loop=5
 
 :repeat
-powershell -NoProfile -nologo "If([Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]'{DCB00C01-570F-4A9B-8D69-199FDBA5723B}')).IsConnectedToInternet){Exit 0}Else{Exit 1}"
+powershell "If([Activator]::CreateInstance([Type]::GetTypeFromCLSID([Guid]'{DCB00C01-570F-4A9B-8D69-199FDBA5723B}')).IsConnectedToInternet){Exit 0}Else{Exit 1}"
 if %errorlevel%==0 (goto IntConnected)
 
 if %loop%== %max_loop% (
