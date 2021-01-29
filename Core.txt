@@ -34,7 +34,7 @@ set Clear-KMS-Cache=0
 
 :: change KMS auto renewal schedule, range in minutes: from 15 to 43200
 :: example: 10080 = weekly, 1440 = daily, 43200 = monthly
-set KMS_RenewalInterval=10080
+set KMS_RenewalInterval=1440
 
 :: change KMS reattempt schedule for failed activation or unactivated, range in minutes: from 15 to 43200
 set KMS_ActivationInterval=120
